@@ -1,0 +1,49 @@
+openapi: 3.0.0
+info:
+  title: All new Branded Tshirt
+  description: Developed By - Deepz
+  version: 0.1.1
+
+servers:
+  - url: "{protocol}://localhost:5000/api/"
+    description: localhost version of the app
+    variables:
+      protocol:
+        enum:
+          - http
+          - https
+        default: http
+
+components:
+  securitySchemes:
+    BasicAuth:
+      type: http
+      scheme: basic
+    BearerAuth:
+      type: http
+      scheme: bearer
+    cookieAuth:
+      type: apiKey
+      in: cookie
+      name: token
+
+paths:
+  /home:
+    get:
+      summary: returns home response information
+      responses:
+        '200':
+          description: success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success: 
+                    type: boolean
+                  message: 
+                    type: string
+        '400':
+          description: Bad request
+        '500':
+          description: 'Internal server error'
