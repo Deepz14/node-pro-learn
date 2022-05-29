@@ -1,6 +1,8 @@
 const mongoose = require('mongoose');
 const validator = require('validator');
 const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
+const crypto = require('crypto');
 
 
 const userSchema = new mongoose.Schema({
@@ -37,7 +39,7 @@ const userSchema = new mongoose.Schema({
 
     },
     forgotPasswordToken: String,
-    resetExpiryToken: Date,
+    forgotPasswordExpiry: Date,
     createdAt: {
         type: Date,
         default: Date.now
@@ -46,7 +48,7 @@ const userSchema = new mongoose.Schema({
 
 // Encrypt password before save
 userSchema.pre("save", async function(next) {
-    // Only run this function if password was moddified (not on other update functions)
+    // Only run this function if password was modified (not on other update functions)
     if(!this.isModified('password')) return next();
 
     // Hash password with strength of 10
@@ -57,5 +59,29 @@ userSchema.pre("save", async function(next) {
 userSchema.methods.comparePassword = async function(password) {
     return await bcrypt.compare(this.password, password);
 }
+
+// create and return JWT token
+userSchema.methods.getJwtToken = async function() {
+    return await jwt.sign({id: this._id}, 
+        process.env.JWT_SECRET_KEY,{
+        expiresIn: process.env.JWT_EXPIRY    
+    })
+}
+
+
+// generate a forgotPasswordToken - (string)
+userSchema.methods.getForgotPasswordToken = function(){
+    // generate a long and random string
+    const forgotPassword = crypto.randomBytes(20).toString('hex');
+
+    // getting a Hash - backend
+    this.forgotPasswordToken = crypto.createHash('sha256').update(forgotPassword).digest('hex');
+
+    // time of token
+    this.forgotPasswordExpiry = Date.now() + 5 * 60 * 1000;
+
+    return forgotPassword;
+}
+
 
 module.exports = mongoose.model('User', userSchema);
