@@ -50,7 +50,12 @@ userSchema.pre("save", async function(next) {
     if(!this.isModified('password')) return next();
 
     // Hash password with strength of 10
-    this.password = await bcrypt.hash(this.password, 10)
+    this.password = await bcrypt.hash(this.password, 10);
 })
+
+// compare Password from the request body
+userSchema.methods.comparePassword = async function(password) {
+    return await bcrypt.compare(this.password, password);
+}
 
 module.exports = mongoose.model('User', userSchema);
