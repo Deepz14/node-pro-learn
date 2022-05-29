@@ -7,6 +7,9 @@ const cookieParser = require('cookie-parser');
 const fileUpload = require('express-fileupload');
 const morgan = require('morgan');
 
+// ejs template engine config
+app.set('view engine', 'ejs')
+
 // IMPORT ALL ROUTES
 const authRoutes = require('./routers/auth');
 const userRoutes = require('./routers/user');
@@ -26,6 +29,10 @@ app.use(morgan('tiny')); // HTTP REQUEST LOGGER
 //ROUTER MIDDLEWARE
 app.use('/api/auth/', authRoutes);
 app.use('/api/user/', userRoutes);
+
+app.get('/signupForm', (req, res) => {
+    res.render('signup');
+})
 
 // Export app.js
 module.exports = app;
