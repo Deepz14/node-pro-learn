@@ -5,7 +5,7 @@ const {
     getHomeData,
     dummyController 
 } 
-= require('../controllers/homeControllers');
+= require('../controllers/user');
 
 
 router.get('/', getHomeData);

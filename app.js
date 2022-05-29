@@ -9,7 +9,7 @@ const morgan = require('morgan');
 
 
 // IMPORT ALL ROUTES
-const homeRoutes = require('./routers/homeRoutes');
+const userRoutes = require('./routers/user');
 
 // Middlewares
 app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerDocument));
@@ -20,7 +20,7 @@ app.use(morgan('tiny')); // HTTP REQUEST LOGGER
 
 
 //ROUTER MIDDLEWARE
-app.use('/api/home/', homeRoutes);
+app.use('/api/home/', userRoutes);
 
 // Export app.js
 module.exports = app;
