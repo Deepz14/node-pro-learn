@@ -9,6 +9,7 @@ const morgan = require('morgan');
 
 
 // IMPORT ALL ROUTES
+const authRoutes = require('./routers/auth');
 const userRoutes = require('./routers/user');
 
 // Middlewares
@@ -20,7 +21,8 @@ app.use(morgan('tiny')); // HTTP REQUEST LOGGER
 
 
 //ROUTER MIDDLEWARE
-app.use('/api/home/', userRoutes);
+app.use('/api/auth/', authRoutes);
+app.use('/api/user/', userRoutes);
 
 // Export app.js
 module.exports = app;
