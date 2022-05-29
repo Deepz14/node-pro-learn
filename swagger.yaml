@@ -28,11 +28,26 @@ components:
       name: token
 
 paths:
-  /home:
-    get:
-      summary: returns home response information
+  /auth/signup:
+    post:
+      tags:
+        - Authentication
+      summary: create a new user
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                  name:
+                    type: string
+                  email:
+                    type: string
+                  password:
+                    type: string 
       responses:
-        '200':
+        '201':
           description: success
           content:
             application/json:
@@ -41,8 +56,21 @@ paths:
                 properties:
                   success: 
                     type: boolean
-                  message: 
+                  token: 
                     type: string
+                  user:
+                    type: object
+                    properties:
+                      name:
+                        type: string 
+                      email:
+                        type: string 
+                      role:
+                        type: string 
+                      _id:
+                        type: string 
+                      createdAt:
+                        type: string 
         '400':
           description: Bad request
         '500':

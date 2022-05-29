@@ -1,6 +1,6 @@
-const cookieToken = (user, res) => {
+const cookieToken = async(user, res) => {
     // generate a jwt token
-    const token = user.getJwtToken()
+    const token = await user.getJwtToken()
 
     // cookie options
     const options = {
