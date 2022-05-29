@@ -4,9 +4,8 @@ const swaggerUI = require('swagger-ui-express');
 const yaml = require('yamljs');
 const swaggerDocument = yaml.load('./swagger.yaml');
 const cookieParser = require('cookie-parser');
+const fileUpload = require('express-fileupload');
 const morgan = require('morgan');
-
-
 
 // IMPORT ALL ROUTES
 const authRoutes = require('./routers/auth');
@@ -17,6 +16,10 @@ app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerDocument));
 app.use(express.json()); // TO RECOGNISE THE REQ OBJECT AS JSON
 app.use(express.urlencoded({extended: true})); // TO RECOGNISE THE REQ OBJECT AS STRINGS AND ARRAYS
 app.use(cookieParser());
+app.use(fileUpload({
+    useTempFiles : true,
+    tempFileDir : '/tmp/'
+}))
 app.use(morgan('tiny')); // HTTP REQUEST LOGGER
 
 

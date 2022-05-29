@@ -1,8 +1,21 @@
 const User = require('../models/user');
 const cookieToken = require('../utils/cookieToken');
+const cloudinary = require('cloudinary');
 
 exports.createUser = async(req, res) => {
     try {
+        let fileUpload;
+
+        if (req.files){
+            let file = req.files.photo
+            fileUpload = await cloudinary.v2.uploader.upload(file, {
+                folder: "users",
+                width: 150,
+                crop: "scale"
+            })
+
+        }
+
         const {name, email, password} = req.body;
 
         if (!name || !email || !password) {
@@ -10,7 +23,10 @@ exports.createUser = async(req, res) => {
         }
 
         // create a new user
-        const user = await User.create({name,email,password})
+        const user = await User.create({ 
+            name, email,password, 
+            photo: {id: fileUpload.public_id, secure_url: fileUpload.secure_url}
+        })
 
         cookieToken(user, res);
 
