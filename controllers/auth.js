@@ -3,6 +3,7 @@ const cookieToken = require('../utils/cookieToken');
 const cloudinary = require('cloudinary');
 const user = require('../models/user');
 const mailHelper = require('../utils/mailHelper');
+const crypto = require('crypto');
 
 exports.createUser = async(req, res) => {
     try {
@@ -133,4 +134,38 @@ exports.forgotPassword = async(req, res) => {
         res.status(400).send({error: err.message});
     }
     
+}
+
+exports.resetPassword = async(req, res) => {
+    try {
+        // Get the New Password from the req body
+        const { password } = req.body;
+
+        // Get the forgotToken from the req params
+        const { token } = req.params;
+
+        // Encrypt the Token
+        const encrypt = crypto.createHash('sha256').update(token).digest('hex');
+
+        // Match the Encrypt token against the DB Token
+        const user = await User.findOne({
+            encrypt,
+            forgotPasswordExpiry: {$gt: Date.now()}
+        });
+
+        if(!user){
+            throw new Error('Invalid Token or Expired');
+        }
+
+        user.password = password;
+        user.forgotPasswordToken = undefined;
+        user.forgotPasswordExpiry = undefined;
+
+        await user.save();
+
+        cookieToken(user, res);
+
+    } catch (err) {
+        res.status(400).send({error: err.message});
+    }
 }
