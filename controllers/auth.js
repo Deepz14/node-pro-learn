@@ -54,10 +54,9 @@ exports.login = async(req, res) => {
         }
 
         const is_correct = await user.comparePassword(password);
-        console.log('is_correct', is_correct);
+        
         // Check the Password is correct or not
         if(!is_correct){
-            console.log('inside error');
             throw new Error('Email or Password is incorrect');
         }
 
