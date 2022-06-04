@@ -9,8 +9,8 @@ const cookieToken = async(user, res) => {
         ),
         httpOnly: true
     }
-
-    res.status(201).cookie('token', token, options).json({ success: true, token, user});
+    user.password = undefined;
+    res.status(200).cookie('token', token, options).json({ success: true, token, user});
 }
 
 module.exports = cookieToken;

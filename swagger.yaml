@@ -50,7 +50,52 @@ paths:
                     type: string
                     format: binary   
       responses:
-        '201':
+        '200':
+          description: success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success: 
+                    type: boolean
+                  token: 
+                    type: string
+                  user:
+                    type: object
+                    properties:
+                      name:
+                        type: string 
+                      email:
+                        type: string 
+                      role:
+                        type: string 
+                      _id:
+                        type: string 
+                      createdAt:
+                        type: string 
+        '400':
+          description: Bad request
+        '500':
+          description: 'Internal server error'
+  /auth/login:
+    post:
+      tags:
+        - Authentication
+      summary: Login
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                  email:
+                    type: string
+                  password:
+                    type: string   
+      responses:
+        '200':
           description: success
           content:
             application/json:
