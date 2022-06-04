@@ -123,3 +123,24 @@ paths:
           description: Bad request
         '500':
           description: 'Internal server error'
+  /auth/logout:
+    get:
+      tags:
+        - Authentication
+      summary: Logout  
+      responses:
+        '200':
+          description: success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success: 
+                    type: boolean
+                  message: 
+                    type: string
+        '400':
+          description: Bad request
+        '500':
+          description: 'Internal server error'

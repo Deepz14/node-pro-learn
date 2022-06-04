@@ -54,13 +54,34 @@ exports.login = async(req, res) => {
         }
 
         const is_correct = await user.comparePassword(password);
-        
+
         // Check the Password is correct or not
         if(!is_correct){
             throw new Error('Email or Password is incorrect');
         }
 
         cookieToken(user, res);
+
+    } catch (err) {
+        res.status(400).send({error: err.message});
+    }
+    
+}
+
+exports.logout = async(req, res) => {
+    try {
+        // cookie options
+        const options = {
+            expires: new Date(Date.now()),
+            httpOnly: true
+        }
+
+        res.cookie('token', null, options);
+
+        res.status(200).json({
+            success: true,
+            message: 'Logged out successfully'
+        });
 
     } catch (err) {
         res.status(400).send({error: err.message});
