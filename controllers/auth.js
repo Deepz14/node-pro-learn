@@ -1,6 +1,8 @@
 const User = require('../models/user');
 const cookieToken = require('../utils/cookieToken');
 const cloudinary = require('cloudinary');
+const user = require('../models/user');
+const mailHelper = require('../utils/mailHelper');
 
 exports.createUser = async(req, res) => {
     try {
@@ -84,6 +86,50 @@ exports.logout = async(req, res) => {
         });
 
     } catch (err) {
+        res.status(400).send({error: err.message});
+    }
+    
+}
+
+exports.forgotPassword = async(req, res) => {
+    try {
+        // Get the Email from the req body
+        const {email} = req.body;
+        
+        // check the user is present in DB
+        const user = await User.findOne({email});
+
+        if(!user){
+            throw new Error('User not Found please provide valid credentials');
+        }
+
+        // Get Forgot Password Token
+        const passwordToken = await user.getForgotPasswordToken();
+
+        // URL of the forgot password Token
+        const url = `${req.protocol}://${req.get("host")}/api/auth/password/token/${passwordToken}`;
+
+        const message = `Copy and Paste the link ${url} and hit enter `;
+
+        await user.save();
+
+        const options = {
+            email: email,
+            subject: 'Password Reset - T-store Ecommerce',
+            text: message
+        };
+        
+        // sending the mail
+        await mailHelper(options);
+
+        res.status(200).json({
+            success: true,
+            message: 'Mail sent successfully!'
+        });
+
+    } catch (err) {
+        user.forgotPasswordToken = undefined;
+        user.forgotPasswordExpiry = undefined;
         res.status(400).send({error: err.message});
     }
     
