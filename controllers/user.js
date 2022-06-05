@@ -137,6 +137,30 @@ exports.adminUpdateUser = async(req, res) => {
     }
 }
 
+exports.adminDeleteuser = async(req, res) => {
+    try {
+
+        const user = await User.findById(req.params.id);
+
+        if(!user){
+            throw new Error('User not Found');
+        }
+        
+        // Remove the Image from the cloudinary
+        await cloudinary.v2.uploader.destroy(user.photo.id);
+
+        // remove the user
+        await user.remove();
+
+        res.status(200).json({
+            success: true,
+            message: 'user deleted succesfully'
+        });
+    } catch (err) {
+        res.status(400).send({error: err.message});
+    }
+}
+
 exports.managerAllUsers = async(req, res) => {
     try {
         const users = await User.find();

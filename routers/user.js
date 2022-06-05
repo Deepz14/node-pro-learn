@@ -9,6 +9,7 @@ const {
    adminGetAllUsers,
    adminGetUserbyId,
    adminUpdateUser,
+   adminDeleteuser,
    managerAllUsers
 } = require('../controllers/user');
 
@@ -22,6 +23,7 @@ router.post('/updateUser', verifyUser, updateUser);
 router.get('/admin/allusers', verifyUser, customRoles('admin'), adminGetAllUsers);
 router.get('/admin/user/:id', verifyUser, customRoles('admin'), adminGetUserbyId);
 router.put('/admin/user/:id', verifyUser, customRoles('admin'), adminUpdateUser);
+router.delete('/admin/user/:id', verifyUser, customRoles('admin'), adminDeleteuser);
 
 // manager routes
 router.get('/manager/allusers', verifyUser, customRoles('manager'), managerAllUsers);
