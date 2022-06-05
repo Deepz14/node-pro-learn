@@ -474,6 +474,70 @@ paths:
           description: Bad request
         '500':
           description: 'Internal server error'        
+    put:
+      tags:
+        - Admin
+      summary: update users
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          schema:
+            type: string
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                  name:
+                    type: string
+                    required: true    
+                  email:
+                    type: string
+                    required: true
+                  role:
+                    type: string
+                    required: true               
+      responses:
+        '200':
+          description: success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success: 
+                    type: boolean
+                  token: 
+                    type: string
+                  user:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        photo:
+                          type: object
+                          properties:
+                            id:
+                              type: string
+                            secure_url:
+                              type: string  
+                        name:
+                          type: string 
+                        email:
+                          type: string 
+                        role:
+                          type: string 
+                        _id:
+                          type: string 
+                        createdAt:
+                          type: string 
+        '400':
+          description: Bad request
+        '500':
+          description: 'Internal server error'        
 
 
   /user/manager/allusers:

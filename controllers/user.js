@@ -111,6 +111,32 @@ exports.adminGetUserbyId = async(req, res) => {
     }
 }
 
+exports.adminUpdateUser = async(req, res) => {
+    try {
+        const userId = req.params.id;
+
+        const { name, email, role} = req.body;
+
+        let updateUser = {
+            name,
+            email,
+            role
+        }
+        const users = await User.findByIdAndUpdate(userId, updateUser, {
+            new: true,
+            runValidators: true
+        })
+
+        res.status(200).json({
+            success: true,
+            users
+        });
+
+    } catch (err) {
+        res.status(400).send({error: err.message});
+    }
+}
+
 exports.managerAllUsers = async(req, res) => {
     try {
         const users = await User.find();
