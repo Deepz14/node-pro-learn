@@ -222,4 +222,47 @@ paths:
           description: Bad request
         '500':
           description: 'Internal server error'
-          
+
+  /user/userinfo:
+    get:
+      tags:
+        - User
+      summary: Get a user
+      security:
+        - BearerAuth: []  
+      responses:
+        '200':
+          description: success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success: 
+                    type: boolean
+                  token: 
+                    type: string
+                  user:
+                    type: object
+                    properties:
+                      photo:
+                        type: object
+                        properties:
+                          id:
+                            type: string
+                          secure_url:
+                            type: string  
+                      name:
+                        type: string 
+                      email:
+                        type: string 
+                      role:
+                        type: string 
+                      _id:
+                        type: string 
+                      createdAt:
+                        type: string 
+        '400':
+          description: Bad request
+        '500':
+          description: 'Internal server error'        

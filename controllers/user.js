@@ -1,15 +1,12 @@
-// getHomeData controller
-exports.getHomeData = (req, res) => {
-    res.status(200).json({
-        success: true,
-        message: 'Request successfull'
-    })
-}
+const User = require('../models/user');
 
-// dummy controller
-exports.dummyController = (req, res) => {
-    res.status(200).json({
-        status: true,
-        message: 'Dummy controller successfully received'
-    })
+exports.getuser = (req, res) => {
+    try {
+        res.status(200).json({
+            success: true,
+            user: req.user
+        });
+    } catch (err) {
+        res.status(400).send({error: err.message});
+    }
 }

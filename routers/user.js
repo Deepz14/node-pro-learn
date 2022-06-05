@@ -1,16 +1,11 @@
 const express = require('express');
 const router = express.Router();
+const {verifyUser} = require('../middlewares/userVerify');
 
 const { 
-    getHomeData,
-    dummyController 
-} 
-= require('../controllers/user');
+   getuser
+} = require('../controllers/user');
 
-
-router.get('/', getHomeData);
-
-router.get('/dummy/', dummyController);
-
+router.get('/userinfo', verifyUser, getuser);
 
 module.exports = router

@@ -30,6 +30,12 @@ app.use(morgan('tiny')); // HTTP REQUEST LOGGER
 app.use('/api/auth/', authRoutes);
 app.use('/api/user/', userRoutes);
 
+// Welcome Route
+app.get('/', (req, res) => {
+    res.send('Hello, Welcome to the Application');
+})
+
+// view ejs signupForm route
 app.get('/signupForm', (req, res) => {
     res.render('signup');
 })
