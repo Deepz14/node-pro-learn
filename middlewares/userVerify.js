@@ -1,5 +1,6 @@
 const User = require('../models/user');
 const jwt = require('jsonwebtoken');
+const CustomError = require('../utils/customError');
 
 exports.verifyUser = async(req, res, next) => {
 
@@ -20,4 +21,13 @@ exports.verifyUser = async(req, res, next) => {
     req.user = await User.findById(decoded.id);;
 
     next();
+}
+
+exports.customRoles = (...roles) => {
+    return (req, res, next) => {
+        if (!roles.includes(req.user.role)) {
+            return next(res.status(403).send({error: 'You are allowed for this resource'}));
+        }
+        next();
+    }
 }
