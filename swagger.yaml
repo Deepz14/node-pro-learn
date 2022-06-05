@@ -266,3 +266,115 @@ paths:
           description: Bad request
         '500':
           description: 'Internal server error'        
+  /user/changepassword:
+    post:
+      tags:
+        - User
+      summary: Change user Password
+      security:
+        - BearerAuth: []
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                  oldPassword:
+                    type: string    
+                  newPassword:
+                    type: string    
+      responses:
+        '200':
+          description: success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success: 
+                    type: boolean
+                  token: 
+                    type: string
+                  user:
+                    type: object
+                    properties:
+                      photo:
+                        type: object
+                        properties:
+                          id:
+                            type: string
+                          secure_url:
+                            type: string  
+                      name:
+                        type: string 
+                      email:
+                        type: string 
+                      role:
+                        type: string 
+                      _id:
+                        type: string 
+                      createdAt:
+                        type: string 
+        '400':
+          description: Bad request
+        '500':
+          description: 'Internal server error'        
+  /user/updateUser:
+    post:
+      tags:
+        - User
+      summary: Update user
+      security:
+        - BearerAuth: []
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                  name:
+                    type: string
+                    required: true    
+                  email:
+                    type: string
+                    required: true
+                  photo:
+                    type: string
+                    format: binary      
+      responses:
+        '200':
+          description: success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success: 
+                    type: boolean
+                  token: 
+                    type: string
+                  user:
+                    type: object
+                    properties:
+                      photo:
+                        type: object
+                        properties:
+                          id:
+                            type: string
+                          secure_url:
+                            type: string  
+                      name:
+                        type: string 
+                      email:
+                        type: string 
+                      role:
+                        type: string 
+                      _id:
+                        type: string 
+                      createdAt:
+                        type: string 
+        '400':
+          description: Bad request
+        '500':
+          description: 'Internal server error'        
