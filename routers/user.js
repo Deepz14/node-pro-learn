@@ -7,6 +7,7 @@ const {
    changePassword,
    updateUser,
    adminGetAllUsers,
+   adminGetUserbyId,
    managerAllUsers
 } = require('../controllers/user');
 
@@ -18,6 +19,7 @@ router.post('/updateUser', verifyUser, updateUser);
 
 // admin routes
 router.get('/admin/allusers', verifyUser, customRoles('admin'), adminGetAllUsers);
+router.get('/admin/user/:id', verifyUser, customRoles('admin'), adminGetUserbyId);
 
 // manager routes
 router.get('/manager/allusers', verifyUser, customRoles('manager'), managerAllUsers);
