@@ -378,10 +378,11 @@ paths:
           description: Bad request
         '500':
           description: 'Internal server error'        
+  
   /user/admin/allusers:
     get:
       tags:
-        - User
+        - Admin
       summary: get all users
       security:
         - BearerAuth: []      
@@ -423,3 +424,49 @@ paths:
           description: Bad request
         '500':
           description: 'Internal server error'        
+
+  /user/manager/allusers:
+    get:
+      tags:
+        - Manager
+      summary: get all users
+      security:
+        - BearerAuth: []      
+      responses:
+        '200':
+          description: success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success: 
+                    type: boolean
+                  token: 
+                    type: string
+                  user:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        photo:
+                          type: object
+                          properties:
+                            id:
+                              type: string
+                            secure_url:
+                              type: string  
+                        name:
+                          type: string 
+                        email:
+                          type: string 
+                        role:
+                          type: string 
+                        _id:
+                          type: string 
+                        createdAt:
+                          type: string 
+        '400':
+          description: Bad request
+        '500':
+          description: 'Internal server error' 

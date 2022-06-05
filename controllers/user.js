@@ -82,6 +82,20 @@ exports.updateUser = async(req, res) => {
 
 exports.adminGetAllUsers = async(req, res) => {
     try {
+        const users = await User.find();
+
+        res.status(200).json({
+            success: true,
+            users
+        });
+
+    } catch (err) {
+        res.status(400).send({error: err.message});
+    }
+}
+
+exports.managerAllUsers = async(req, res) => {
+    try {
         const users = await User.find({role: 'user'});
 
         res.status(200).json({
