@@ -13,6 +13,7 @@ app.set('view engine', 'ejs')
 // IMPORT ALL ROUTES
 const authRoutes = require('./routers/auth');
 const userRoutes = require('./routers/user');
+const productRoutes = require('./routers/product');
 
 // Middlewares
 app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerDocument));
@@ -29,6 +30,7 @@ app.use(morgan('tiny')); // HTTP REQUEST LOGGER
 //ROUTER MIDDLEWARE
 app.use('/api/auth/', authRoutes);
 app.use('/api/user/', userRoutes);
+app.use('/api/product', productRoutes);
 
 // Welcome Route
 app.get('/', (req, res) => {
