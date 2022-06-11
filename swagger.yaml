@@ -612,3 +612,94 @@ paths:
           description: Bad request
         '500':
           description: 'Internal server error' 
+
+  /product/admin/addProduct:
+    post:
+      tags:
+        - Admin
+      summary: create a Product
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                  name:
+                    type: string
+                  price:
+                    type: number
+                  description:
+                    type: string
+                  photos:
+                    type: array
+                    items:
+                      type: string
+                      format: binary
+                  brand:
+                    type: string
+                  category:
+                    type: string
+                    default: shortSleeve
+                    enum:
+                      - shortSleeve
+                      - longSleeve
+                      - sweatShirt
+                      - hoodie                      
+      responses:
+        '200':
+          description: success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success: 
+                    type: boolean
+                  product:
+                    type: object
+                    properties:
+                      name:
+                        type: string
+                      price:
+                        type: number
+                      description:
+                        type: string
+                      photo:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            id:
+                              type: string
+                            secure_url:
+                              type: string  
+                      reviews:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            user:
+                              type: string
+                            name:
+                              type: string  
+                            rating:
+                              type: number  
+                            comment:
+                              type: string  
+                      brand:
+                        type: string 
+                      category:
+                        type: string 
+                      ratings:
+                        type: number 
+                      totalReviews:
+                        type: number 
+                      user:
+                        type: string 
+                      createdAt:
+                        type: string
+        '400':
+          description: Bad request
+        '500':
+          description: 'Internal server error'           
