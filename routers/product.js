@@ -5,7 +5,9 @@ const {
     createProduct, 
     getAllProduct,
     getSingleProduct,
-    adminGetAllProduct  
+    adminGetAllProduct,
+    adminUpdateProduct,
+    adminDeleteProduct  
 } = require('../controllers/product');
 
 router.get('/getAllProduct', verifyUser, getAllProduct);
@@ -14,5 +16,7 @@ router.get('/:id', verifyUser, getSingleProduct);
 // Admin routes
 router.post('/admin/addProduct', verifyUser, customRoles('admin'), createProduct);
 router.get('/admin/getAllProduct', verifyUser, customRoles('admin'), adminGetAllProduct);
+router.put('/admin/updateProduct/:id', verifyUser, customRoles('admin'), adminUpdateProduct);
+router.delete('/admin/deleteProduct/:id', verifyUser, customRoles('admin'), adminDeleteProduct);
 
 module.exports = router;
