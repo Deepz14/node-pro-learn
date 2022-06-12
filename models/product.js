@@ -32,7 +32,7 @@ const productSchema = new mongoose.Schema({
         type: String,
         required: [true, 'Please select a category from short-sleeve, long-sleeve, sweatshirt, hoodie'],
         enum: {
-            values: ['shortSleeve', 'longSleeve', 'sweatShirt', 'hoodie'],
+            values: ['shortsleeve', 'longsleeve', 'sweatshirt', 'hoodie'],
             message: 'Please a select a valid category'
         }
     },

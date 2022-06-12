@@ -640,11 +640,11 @@ paths:
                     type: string
                   category:
                     type: string
-                    default: shortSleeve
+                    default: shortsleeve
                     enum:
-                      - shortSleeve
-                      - longSleeve
-                      - sweatShirt
+                      - shortsleeve
+                      - longsleeve
+                      - sweatshirt
                       - hoodie                      
       responses:
         '200':
