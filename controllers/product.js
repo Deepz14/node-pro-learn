@@ -44,7 +44,6 @@ exports.createProduct = async(req, res) => {
     }
 }
 
-
 exports.getAllProduct = async(req, res) => {
     try {
         
@@ -68,5 +67,36 @@ exports.getAllProduct = async(req, res) => {
 
     } catch (err) {
         res.status(400).send({error: err.message});    
+    }
+}
+
+exports.getSingleProduct = async(req, res) => {
+    try {
+        const product = await Product.findById(req.params.id);
+
+        if (!product) {
+            throw new Error('Product not Found');
+        }
+
+        res.status(200).json({
+            success: true,
+            product
+        })
+    } catch (err) {
+        res.status(400).send({error: err.message});  
+    }
+}
+
+exports.adminGetAllProduct = async(req, res) => {
+    try {
+        
+        const products = await Product.find();
+
+        res.status(200).json({
+            success: true,
+            products
+        })
+    } catch (err) {
+        res.status(400).send({error: err.message});  
     }
 }

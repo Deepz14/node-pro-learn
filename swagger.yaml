@@ -703,6 +703,71 @@ paths:
           description: Bad request
         '500':
           description: 'Internal server error'           
+  /product/admin/getAllProduct:
+    get:
+      tags:
+        - Admin
+      summary: get all Product                      
+      responses:
+        '200':
+          description: success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success: 
+                    type: boolean  
+                  products:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        name:
+                          type: string
+                        price:
+                          type: number
+                        description:
+                          type: string
+                        photo:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              id:
+                                type: string
+                              secure_url:
+                                type: string  
+                        reviews:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              user:
+                                type: string
+                              name:
+                                type: string  
+                              rating:
+                                type: number  
+                              comment:
+                                type: string  
+                        brand:
+                          type: string 
+                        category:
+                          type: string 
+                        ratings:
+                          type: number 
+                        totalReviews:
+                          type: number 
+                        user:
+                          type: string 
+                        createdAt:
+                          type: string
+        '400':
+          description: Bad request
+        '500':
+          description: 'Internal server error'
+  
   /product/getAllProduct:
     get:
       tags:
@@ -767,6 +832,73 @@ paths:
                           type: string 
                         createdAt:
                           type: string
+        '400':
+          description: Bad request
+        '500':
+          description: 'Internal server error'           
+  /product/{id}:
+    get:
+      tags:
+        - User
+      summary: get Product by id
+      parameters:
+        - name: id
+          in: path
+          schema:
+            type: string                      
+      responses:
+        '200':
+          description: success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success: 
+                    type: boolean  
+                  product:
+                    type: object
+                    properties:
+                      name:
+                        type: string
+                      price:
+                        type: number
+                      description:
+                        type: string
+                      photo:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            id:
+                              type: string
+                            secure_url:
+                              type: string  
+                      reviews:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            user:
+                              type: string
+                            name:
+                              type: string  
+                            rating:
+                              type: number  
+                            comment:
+                              type: string  
+                      brand:
+                        type: string 
+                      category:
+                        type: string 
+                      ratings:
+                        type: number 
+                      totalReviews:
+                        type: number 
+                      user:
+                        type: string 
+                      createdAt:
+                        type: string
         '400':
           description: Bad request
         '500':

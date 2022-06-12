@@ -30,7 +30,7 @@ app.use(morgan('tiny')); // HTTP REQUEST LOGGER
 //ROUTER MIDDLEWARE
 app.use('/api/auth/', authRoutes);
 app.use('/api/user/', userRoutes);
-app.use('/api/product', productRoutes);
+app.use('/api/product/', productRoutes);
 
 // Welcome Route
 app.get('/', (req, res) => {
