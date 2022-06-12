@@ -956,6 +956,190 @@ paths:
           description: Bad request
         '500':
           description: 'Internal server error'           
+  /product/addReview:
+    put:
+      tags:
+        - User
+      summary: Add a Review
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                  productId:
+                    type: string
+                  rating:
+                    type: string
+                  comment:
+                    type: string                     
+      responses:
+        '200':
+          description: success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success: 
+                    type: boolean  
+                  product:
+                    type: object
+                    properties:
+                      name:
+                        type: string
+                      price:
+                        type: number
+                      description:
+                        type: string
+                      photo:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            id:
+                              type: string
+                            secure_url:
+                              type: string  
+                      reviews:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            user:
+                              type: string
+                            name:
+                              type: string  
+                            rating:
+                              type: number  
+                            comment:
+                              type: string  
+                      brand:
+                        type: string 
+                      category:
+                        type: string 
+                      ratings:
+                        type: number 
+                      totalReviews:
+                        type: number 
+                      user:
+                        type: string 
+                      createdAt:
+                        type: string
+        '400':
+          description: Bad request
+        '500':
+          description: 'Internal server error'           
+  /product/deleteReview:
+    delete:
+      tags:
+        - User
+      summary: delete a Review
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                  productId:
+                    type: string                     
+      responses:
+        '200':
+          description: success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success: 
+                    type: boolean  
+                  product:
+                    type: object
+                    properties:
+                      name:
+                        type: string
+                      price:
+                        type: number
+                      description:
+                        type: string
+                      photo:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            id:
+                              type: string
+                            secure_url:
+                              type: string  
+                      reviews:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            user:
+                              type: string
+                            name:
+                              type: string  
+                            rating:
+                              type: number  
+                            comment:
+                              type: string  
+                      brand:
+                        type: string 
+                      category:
+                        type: string 
+                      ratings:
+                        type: number 
+                      totalReviews:
+                        type: number 
+                      user:
+                        type: string 
+                      createdAt:
+                        type: string
+        '400':
+          description: Bad request
+        '500':
+          description: 'Internal server error'           
+  /product/reviews/{id}:
+    get:
+      tags:
+        - User
+      summary: get a Product Review
+      parameters:
+        - name: id
+          in: path
+          schema:
+            type: string                     
+      responses:
+        '200':
+          description: success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success: 
+                    type: boolean   
+                  reviews:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        user:
+                          type: string
+                        name:
+                          type: string  
+                        rating:
+                          type: number  
+                        comment:
+                          type: string  
+        '400':
+          description: Bad request
+        '500':
+          description: 'Internal server error'           
+  
   /product/{id}:
     get:
       tags:

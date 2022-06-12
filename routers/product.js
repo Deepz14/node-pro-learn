@@ -5,12 +5,18 @@ const {
     createProduct, 
     getAllProduct,
     getSingleProduct,
+    addReview,
+    deleteReview,
+    getAllReviewsOfProduct,
     adminGetAllProduct,
     adminUpdateProduct,
     adminDeleteProduct  
 } = require('../controllers/product');
 
 router.get('/getAllProduct', verifyUser, getAllProduct);
+router.put('/addReview', verifyUser, addReview);
+router.delete('/deleteReview', verifyUser, deleteReview);
+router.get('/reviews/:id', verifyUser, getAllReviewsOfProduct);
 router.get('/:id', verifyUser, getSingleProduct);
 
 // Admin routes
