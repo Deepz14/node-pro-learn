@@ -1,5 +1,6 @@
 const Product = require('../models/product');
 const cloudinary = require('cloudinary');
+const WhereClause = require('../utils/whereClause');
 
 exports.createProduct = async(req, res) => {
     try {
@@ -40,5 +41,32 @@ exports.createProduct = async(req, res) => {
             }
         }
         res.status(400).send({error: err.message});
+    }
+}
+
+
+exports.getAllProduct = async(req, res) => {
+    try {
+        
+        const resultPerPage = 6;
+        const totalCountProduct = await Product.countDocuments();
+
+        let productObj = new WhereClause(Product.find(), req.query).search().filter();
+
+        let products = await productObj.base;
+        const filteredProducts = products.length;
+
+        productObj.pager(resultPerPage);
+        products = await productObj.base.clone();
+
+        res.status(200).json({
+            success: true,
+            products,
+            totalCountProduct,
+            filteredProducts
+        })
+
+    } catch (err) {
+        res.status(400).send({error: err.message});    
     }
 }
