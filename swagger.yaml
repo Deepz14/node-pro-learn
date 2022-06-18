@@ -1546,4 +1546,85 @@ paths:
         '400':
           description: Bad request
         '500':
-          description: 'Internal server error'     
+          description: 'Internal server error'
+
+  /order/admin/updateOrder/{id}:
+    put:
+      tags:
+        - Admin
+      summary: update Order
+      parameters:
+        - name: id
+          in: path
+          schema:
+            type: string
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                  orderStatus:
+                    type: string
+                    required: true                            
+      responses:
+        '200':
+          description: success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  orders:
+                    type: object
+                    properties:
+                      shippingInfo:
+                        type: object
+                        properties:
+                          address:
+                            type: string
+                          phoneNumber:
+                            type: number
+                          pincode:
+                            type: number
+                          state:
+                            type: string
+                          city:
+                            type: string
+                          country:
+                            type: string
+                      orderItems:
+                        type: array
+                        items:
+                          properties:
+                            name:
+                              type: string
+                            price:
+                              type: number
+                            image:
+                              type: string
+                            quantity:
+                              type: number
+                            products:
+                              type: string  
+                      paymentInfo:
+                        type: object
+                        properties:
+                          id:
+                            type: string
+                      stock:
+                        type: number
+                      taxAmount:
+                        type: number
+                      shippingAmount:
+                        type: number
+                      totalAmount:
+                        type: number
+                      createdAt:
+                        type: string   
+        '400':
+          description: Bad request
+        '500':
+          description: 'Internal server error'              

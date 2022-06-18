@@ -5,7 +5,8 @@ const {
     createOrder,
     getOneOrder,
     getAllOrders,
-    adminGetAllOrders
+    adminGetAllOrders,
+    adminUpdateOrder
 } = require('../controllers/order');
 
 
@@ -17,6 +18,7 @@ router.get('/:id', verifyUser, getOneOrder);
 
 //adminRoutes
 router.get('/admin/getAllOrders', verifyUser, customRoles('admin'), adminGetAllOrders);
+router.put('/admin/updateOrder/:id', verifyUser, customRoles('admin'), adminUpdateOrder);
 
 
 module.exports = router;

@@ -83,3 +83,39 @@ exports.adminGetAllOrders = async(req, res) => {
         res.status(400).send({error: err.message});
     }
 }
+
+exports.adminUpdateOrder = async(req, res) => {
+    try {
+        
+        const { orderStatus } = req.body;
+
+        if (orderStatus === 'delievered') {
+            throw new Error('Order already marked as delievered');
+        }
+
+        let order = await Order.findById(req.params.id).populate("user", "name email");
+
+        order.orderItems.forEach(order => updateProductStock(order.product, order.quantity));
+
+        order.orderStatus = 'delievered';
+
+        await order.save();
+
+        res.status(200).json({
+            success: true,
+            order
+        });
+
+    } catch (err) {
+        res.status(400).send({err: err.message});
+    }
+}
+
+
+const updateProductStock = async(productId, quantity) => {
+    let product = await Product.findById(productId);
+
+    product.stock = product.stock - quantity;
+
+    await product.save();
+}
