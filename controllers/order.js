@@ -111,6 +111,26 @@ exports.adminUpdateOrder = async(req, res) => {
     }
 }
 
+exports.adminDeleteOrder = async(req, res) => {
+    try {
+        
+        let order = await Order.findById(req.params.id);
+
+        if(!order){
+            throw new Error('Order not found');
+        }
+
+        await order.remove();
+
+        res.status(200).json({
+            success: true,
+            message: 'Order deleted successfully!'
+        });
+
+    } catch (err) {
+        res.status(400).send({err: err.message});
+    }
+}
 
 const updateProductStock = async(productId, quantity) => {
     let product = await Product.findById(productId);
