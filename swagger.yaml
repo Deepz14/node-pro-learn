@@ -638,6 +638,8 @@ paths:
                       format: binary
                   brand:
                     type: string
+                  stock:
+                    type: number  
                   category:
                     type: string
                     default: shortsleeve
@@ -690,7 +692,9 @@ paths:
                       brand:
                         type: string 
                       category:
-                        type: string 
+                        type: string
+                      stock:
+                        type: number   
                       ratings:
                         type: number 
                       totalReviews:
@@ -754,7 +758,9 @@ paths:
                         brand:
                           type: string 
                         category:
-                          type: string 
+                          type: string
+                        stock:
+                          type: number   
                         ratings:
                           type: number 
                         totalReviews:
@@ -796,6 +802,8 @@ paths:
                       format: binary
                   brand:
                     type: string
+                  stock:
+                    type: number  
                   category:
                     type: string
                     default: shortsleeve
@@ -848,7 +856,9 @@ paths:
                       brand:
                         type: string 
                       category:
-                        type: string 
+                        type: string
+                      stock:
+                        type: number   
                       ratings:
                         type: number 
                       totalReviews:
@@ -943,7 +953,9 @@ paths:
                         brand:
                           type: string 
                         category:
-                          type: string 
+                          type: string
+                        stock:
+                          type: number   
                         ratings:
                           type: number 
                         totalReviews:
@@ -1018,7 +1030,9 @@ paths:
                       brand:
                         type: string 
                       category:
-                        type: string 
+                        type: string
+                      stock:
+                        type: number   
                       ratings:
                         type: number 
                       totalReviews:
@@ -1089,7 +1103,9 @@ paths:
                       brand:
                         type: string 
                       category:
-                        type: string 
+                        type: string
+                      stock:
+                        type: number   
                       ratings:
                         type: number 
                       totalReviews:
@@ -1194,7 +1210,9 @@ paths:
                       brand:
                         type: string 
                       category:
-                        type: string 
+                        type: string
+                      stock:
+                        type: number   
                       ratings:
                         type: number 
                       totalReviews:
@@ -1216,7 +1234,7 @@ paths:
       requestBody:
         required: true
         content:
-          multipart/form-data:
+          application/json:
             schema:
               type: object
               properties:
@@ -1247,15 +1265,13 @@ paths:
                         type: string
                       quantity:
                         type: number
-                      products:
+                      product:
                         type: string  
                 paymentInfo:
                   type: object
                   properties:
                     id:
                       type: string
-                stock:
-                  type: number
                 taxAmount:
                   type: number
                 shippingAmount:
@@ -1323,3 +1339,4 @@ paths:
           description: Bad request
         '500':
           description: 'Internal server error'
+     

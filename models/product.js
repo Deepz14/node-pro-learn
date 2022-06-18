@@ -40,6 +40,11 @@ const productSchema = new mongoose.Schema({
         type: String,
         required: [true, 'Please provide a brand name']
     },
+    stock: {
+       type: Number,
+       default: 0,
+       required: [true, 'Please Provide stock Info'] 
+    },
     ratings: {
         type: Number,
         default: 0

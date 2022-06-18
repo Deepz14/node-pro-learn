@@ -62,10 +62,6 @@ const orderSchema = new mongoose.Schema({
             type: String
         }
     },
-    stock: {
-        type: Number,
-        required: true
-    },
     taxAmount: {
         type: Number,
         required: true
