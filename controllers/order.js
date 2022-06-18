@@ -56,9 +56,9 @@ exports.getOneOrder = async(req, res) => {
 
 exports.getAllOrders = async(req, res) => {
     try {
-        
-        let orders = await Orders.find({user: req.user._id});
 
+        let orders = await Order.find({user: req.user._id}).populate("user", "name email");
+    
         res.status(200).json({
             success: true,
             orders

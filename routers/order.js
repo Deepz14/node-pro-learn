@@ -2,12 +2,17 @@ const express = require('express');
 const router = express.Router();
 const { verifyUser, customRoles } = require('../middlewares/userVerify');
 const {
-    createOrder
+    createOrder,
+    getOneOrder,
+    getAllOrders
 } = require('../controllers/order');
 
 
 //userRoutes
 router.post('/createOrder', verifyUser, createOrder);
+router.get('/getOrders', verifyUser, getAllOrders);
+router.get('/:id', verifyUser, getOneOrder);
+
 
 //adminRoutes
 
