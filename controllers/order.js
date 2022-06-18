@@ -68,3 +68,18 @@ exports.getAllOrders = async(req, res) => {
         res.status(400).send({error: err.message});
     }
 }
+
+exports.adminGetAllOrders = async(req, res) => {
+    try {
+        
+        let orders = await Order.find({user: req.user._id}).populate("user", "name email");
+    
+        res.status(200).json({
+            success: true,
+            orders
+        });
+
+    } catch (err) {
+        res.status(400).send({error: err.message});
+    }
+}

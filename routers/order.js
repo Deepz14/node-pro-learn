@@ -4,7 +4,8 @@ const { verifyUser, customRoles } = require('../middlewares/userVerify');
 const {
     createOrder,
     getOneOrder,
-    getAllOrders
+    getAllOrders,
+    adminGetAllOrders
 } = require('../controllers/order');
 
 
@@ -15,6 +16,7 @@ router.get('/:id', verifyUser, getOneOrder);
 
 
 //adminRoutes
+router.get('/admin/getAllOrders', verifyUser, customRoles('admin'), adminGetAllOrders);
 
 
 module.exports = router;
