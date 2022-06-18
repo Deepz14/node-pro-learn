@@ -1207,3 +1207,119 @@ paths:
           description: Bad request
         '500':
           description: 'Internal server error'           
+
+  /order/createOrder:
+    post:
+      tags:
+        - User
+      summary: create a Order
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                shippingInfo:
+                  type: object
+                  properties:
+                    address:
+                      type: string
+                    phoneNumber:
+                      type: number
+                    pincode:
+                      type: number
+                    state:
+                      type: string
+                    city:
+                      type: string
+                    country:
+                      type: string
+                orderItems:
+                  type: array
+                  items:
+                    properties:
+                      name:
+                        type: string
+                      price:
+                        type: number
+                      image:
+                        type: string
+                      quantity:
+                        type: number
+                      products:
+                        type: string  
+                paymentInfo:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                stock:
+                  type: number
+                taxAmount:
+                  type: number
+                shippingAmount:
+                  type: number
+                totalAmount:
+                  type: number                       
+      responses:
+        '200':
+          description: success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  order:
+                    type: object
+                    properties:
+                      shippingInfo:
+                        type: object
+                        properties:
+                          address:
+                            type: string
+                          phoneNumber:
+                            type: number
+                          pincode:
+                            type: number
+                          state:
+                            type: string
+                          city:
+                            type: string
+                          country:
+                            type: string
+                      orderItems:
+                        type: array
+                        items:
+                          properties:
+                            name:
+                              type: string
+                            price:
+                              type: number
+                            image:
+                              type: string
+                            quantity:
+                              type: number
+                            products:
+                              type: string  
+                      paymentInfo:
+                        type: object
+                        properties:
+                          id:
+                            type: string
+                      stock:
+                        type: number
+                      taxAmount:
+                        type: number
+                      shippingAmount:
+                        type: number
+                      totalAmount:
+                        type: number
+                      createdAt:
+                        type: string   
+        '400':
+          description: Bad request
+        '500':
+          description: 'Internal server error'

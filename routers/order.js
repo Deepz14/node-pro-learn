@@ -7,7 +7,7 @@ const {
 
 
 //userRoutes
-
+router.post('/createOrder', verifyUser, createOrder);
 
 //adminRoutes
 
