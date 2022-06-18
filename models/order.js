@@ -21,6 +21,10 @@ const orderSchema = new mongoose.Schema({
         city: {
             type: String,
             required: [true, 'Please provide a city']
+        },
+        country: {
+            type: String,
+            required: [true, 'Please provide a city']
         }
     },
     user: {
@@ -58,17 +62,25 @@ const orderSchema = new mongoose.Schema({
             type: String
         }
     },
+    stock: {
+        type: Number,
+        required: true
+    },
     taxAmount: {
-        type: Number
+        type: Number,
+        required: true
     },
     shippingAmount: {
-        type: Number
+        type: Number,
+        required: true
     },
     totalAmount: {
-        type: Number
+        type: Number,
+        required: true
     },
     orderStatus: {
         type: String,
+        required: true,
         default: 'processing'
     },
     deliveredAt: {

@@ -15,6 +15,7 @@ const authRoutes = require('./routers/auth');
 const userRoutes = require('./routers/user');
 const productRoutes = require('./routers/product');
 const paymentRoutes = require('./routers/payment');
+const orderRoutes = require('./routers/order');
 
 // Middlewares
 app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerDocument));
@@ -33,6 +34,7 @@ app.use('/api/auth/', authRoutes);
 app.use('/api/user/', userRoutes);
 app.use('/api/product/', productRoutes);
 app.use('/api/payment/', paymentRoutes);
+app.use('/api/order', orderRoutes);
 
 // Welcome Route
 app.get('/', (req, res) => {
